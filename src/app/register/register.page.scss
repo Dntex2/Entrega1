@@ -1,0 +1,32 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  ion-item {
+    --padding-start: 10px;
+    --inner-padding-end: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .register-button {
+    --border-radius: 20px;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .login-link a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+
+  #mensaje-error{
+    text-align: center;
+  }

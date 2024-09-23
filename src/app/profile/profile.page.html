@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>RegistrAPP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Todo el contenido aqui -->
+  <ion-button expand="block" (click)=ngOnInit>Cerrar Sesion</ion-button>
+  <!-- Seccion del tab -->
+  
+</ion-content>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button >
+      <ion-icon name="home-outline" routerLink="/inicio"></ion-icon>
+      Inicio
+    </ion-tab-button>
+    <ion-tab-button >
+      <ion-icon name="search-outline"></ion-icon>
+      Buscar
+    </ion-tab-button>
+    <ion-tab-button >
+      <ion-icon name="qr-code-outline"></ion-icon>
+      
+    </ion-tab-button>
+    <ion-tab-button >
+      <ion-icon name="cog-outline"></ion-icon>
+      Ajustes
+    </ion-tab-button>
+    <ion-tab-button >
+      <ion-icon name="person-circle-outline"></ion-icon>
+      Perfil
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
