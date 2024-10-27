@@ -29,6 +29,14 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'not-found404',
+    loadChildren: () => import('./not-found404/not-found404.module').then( m => m.NotFound404PageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found404'
+  }
 ];
 
 @NgModule({

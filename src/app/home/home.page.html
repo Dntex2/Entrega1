@@ -30,6 +30,13 @@
           </ion-item>
         </div>
 
+        <!-- Checkbox para "No preguntar por mis credenciales" -->
+        <div>
+          <ion-item>
+            <ion-checkbox [(ngModel)]="rememberMe" name="rememberMe" slot="start"></ion-checkbox>
+            <ion-label>Recordar mis credenciales</ion-label>
+          </ion-item>
+        </div>
         <!-- Boton de login -->
         <div class="d-flex justify-content-center mb-3">
           <ion-button expand="block" id="boton-sesion" class="login-button  btn-primary" type="submit">
