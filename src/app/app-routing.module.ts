@@ -4,38 +4,41 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  // enlace a la pagina register
+  // Enlace a la página register
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+    loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule)
   },
   {
     path: 'restablecer',
-    loadChildren: () => import('./restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+    loadChildren: () => import('./restablecer/restablecer.module').then(m => m.RestablecerPageModule)
   },
-
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'not-found404',
-    loadChildren: () => import('./not-found404/not-found404.module').then( m => m.NotFound404PageModule)
+    loadChildren: () => import('./not-found404/not-found404.module').then(m => m.NotFound404PageModule)
   },
   {
     path: '**',
     redirectTo: 'not-found404'
+  },
+  {
+    path: 'qr',
+    loadChildren: () => import('./qr/qr.module').then(m => m.QRPageModule) // Ruta para QRPage
   }
 ];
 
