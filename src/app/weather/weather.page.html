@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Informacion del Clima</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Escriba una ciudad</ion-label>
+    <ion-input [(ngModel)]="city" placeholder="e.g., Santiago"></ion-input>
+  </ion-item>
+  <ion-button expand="block" (click)="getWeather()">Obtener Datos</ion-button>
+
+  <ion-list *ngIf="weatherData">
+    <ion-item>
+      <ion-label>Ciudad: {{ weatherData.name }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Temperatura actual: {{ weatherData.main.temp }} °C</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

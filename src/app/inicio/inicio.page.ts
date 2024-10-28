@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inicio',
@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['inicio.page.scss'],
 })
 export class InicioPage {
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private navCtrl: NavController ) {}
 
   async presentWelcomeAlert() {
     const storedUsername = localStorage.getItem('username');
@@ -22,5 +22,9 @@ export class InicioPage {
 
   ionViewDidEnter() {
     this.presentWelcomeAlert();
+  }
+
+  irAWeather() {
+    this.navCtrl.navigateForward('/weather'); // Navega a la página del clima
   }
 }
