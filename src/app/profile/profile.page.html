@@ -1,16 +1,35 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>RegistrAPP</ion-title>
+    <ion-title>Perfil</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="unLogged()">Cerrar Sesión</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-</ion-content>
+<ion-content class="ion-padding">
+  <!-- Perfil de usuario -->
+  <div class="profile-container">
+    <!-- Ícono de avatar -->
+    <ion-avatar class="profile-avatar">
+      <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
+    </ion-avatar>
+    <!-- Nombre de usuario -->
+    <ion-text class="profile-name">
+      <h2>{{ userName || 'Usuario' }}</h2>
+    </ion-text>
+  </div>
 
-<!-- Barra de navegación inferior fija -->
+  <!-- Enlace para restablecer la contraseña -->
+  <ion-item lines="none">
+    <ion-label class="restablecer-link text-center">
+      ¿Se te olvidó la contraseña?
+      <span (click)="goToResetPassword()" class="link">Restablecer</span>
+    </ion-label>
+  </ion-item>
+  
+
+<!-- Barra de navegación baj fija -->
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="static-tab-bar">
     <ion-tab-button tab="home" routerLink="/inicio">
@@ -28,6 +47,3 @@
     <ion-tab-button tab="profile" routerLink="/profile">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Perfil</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
