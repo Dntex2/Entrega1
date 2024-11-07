@@ -20,12 +20,12 @@ const routes: Routes = [
     loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule)
   },
   {
-    path: 'restablecer',
-    loadChildren: () => import('./restablecer/restablecer.module').then(m => m.RestablecerPageModule)
-  },
-  {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
+    path: 'restablecer',
+    loadChildren: () => import('./restablecer/restablecer.module').then(m => m.RestablecerPageModule)
   },
   {
     path: 'attendance',
