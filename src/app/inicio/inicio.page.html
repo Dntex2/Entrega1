@@ -10,43 +10,33 @@
 </ion-header>
 
 <ion-content scroll-y="true">
-   
-  
-  <ion-card>
-    <img alt="Silhouette of mountains" src="https://img.freepik.com/vector-gratis/asistencia-papel-lista-comprobacion-dibujos-animados-icono-vectorial-ilustracion-educacion-negocio-aislado-plano_138676-10698.jpg" />
-    <ion-card-header>
-      <ion-card-title>Registro de Asistencias</ion-card-title>
-      <ion-card-subtitle></ion-card-subtitle>
-    </ion-card-header>
-  
-    <ion-card-content>
-      Aqui podras ver tus asistencias
-    </ion-card-content>
-  </ion-card>
+  <!-- Imagen con navegación directa a la página de asistencia -->
+  <ion-img 
+    src="https://img.freepik.com/vector-gratis/asistencia-papel-lista-comprobacion-dibujos-animados-icono-vectorial-ilustracion-educacion-negocio-aislado-plano_138676-10698.jpg" 
+    routerLink="/attendance" 
+    style="cursor: pointer; display: block; margin: 20px auto; width: 80%; max-width: 400px;"
+    alt="Imagen de Registro de Asistencias">
+  </ion-img>
 </ion-content>
-<!-- Seccion del tab -->
+
+<!-- Barra de navegación inferior con tabs -->
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button>
+    <ion-tab-button tab="home" routerLink="/home">
       <ion-icon name="home-outline"></ion-icon>
-      Inicio
+      <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ion-tab-button >
-      <ion-icon name="search-outline"></ion-icon>
-      Buscar
+    <ion-tab-button tab="clases" routerLink="/attendance">
+      <ion-icon name="book-outline"></ion-icon> <!-- Cambiado a icono de libro -->
+      <ion-label>Clases</ion-label>
     </ion-tab-button>
-    <ion-tab-button >
-      <ion-icon name="qr-code-outline" routerLink="/qr"></ion-icon>
-      
+    <ion-tab-button tab="qr" routerLink="/qr">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <ion-label>QR</ion-label>
     </ion-tab-button>
-    <ion-tab-button >
-      <ion-icon name="cog-outline"></ion-icon>
-      Ajustes
-    </ion-tab-button>
-    <ion-tab-button >
-      <ion-icon name="person-circle-outline" routerLink="/profile"></ion-icon>
-      Perfil
+    <ion-tab-button tab="profile" routerLink="/profile">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
-

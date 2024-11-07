@@ -1,0 +1,36 @@
+<!-- Navbar Estática con Iconos Sin Texto, oculta al hacer scroll -->
+<ion-header [class.hidden]="isScrollingDown">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-title>Asistencia</ion-title>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/inicio">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/qr">
+        <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/profile">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Contenido Scrollable sin Infinite Scroll -->
+<ion-content fullscreen class="attendance-content" (ionScroll)="onScroll($event)" scrollEvents="true">
+  <ion-list>
+    <ion-card *ngFor="let item of items; let i = index" class="subject-card" (click)="showDetails(item)">
+      <ion-card-header [ngStyle]="{'background-color': item.color}">
+        <ion-card-subtitle>{{ item.code }}</ion-card-subtitle>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Estado:</strong> Abierto</p>
+        <p><strong>Profesor:</strong> {{ item.professor }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

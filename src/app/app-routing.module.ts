@@ -11,7 +11,6 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  // Enlace a la página register
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
@@ -29,25 +28,22 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
-    path: 'not-found404',
-    loadChildren: () => import('./not-found404/not-found404.module').then(m => m.NotFound404PageModule)
+    path: 'attendance',
+    loadChildren: () => import('./attendance/attendance.module').then(m => m.AttendancePageModule)
   },
   {
     path: 'qr',
-    loadChildren: () => import('./qr/qr.module').then(m => m.QRPageModule) // Ruta para QRPage
+    loadChildren: () => import('./qr/qr.module').then(m => m.QRPageModule)
   },
-{
-  path: 'weather',
-  loadChildren: () => import('./weather/weather.module').then( m => m.WeatherPageModule)
-},
+  {
+    path: 'weather',
+    loadChildren: () => import('./weather/weather.module').then(m => m.WeatherPageModule)
+  },
   {
     path: 'not-found404',
     loadChildren: () => import('./not-found404/not-found404.module').then(m => m.NotFound404PageModule)
   },
-  {
-    path: '**',
-    redirectTo: 'not-found404'
-  }
+
 ];
 
 @NgModule({
