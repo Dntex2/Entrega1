@@ -1,0 +1,57 @@
+.attendance-content {
+    background-color: #000000; /* Fondo negro para el contenido principal */
+    padding-bottom: 56px; /* Espacio para la barra de navegación inferior */
+    margin-top: 70px; /* Espacio adicional debajo de la navbar */
+  }
+  
+  .subject-card {
+    margin-bottom: 16px;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    padding: 10px 15px;
+    text-align: center;
+    color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  /* Navbar Styles */
+  ion-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: top 0.3s;
+  }
+  
+  ion-header.hidden {
+    top: -60px; /* Oculta la navbar al hacer scroll hacia abajo */
+  }
+  
+  ion-toolbar {
+    background-color: #ffffff; /* Fondo blanco para la navbar */
+    color: black; /* Color negro para el texto y los iconos */
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+  }
+  
+  /* Estilo para el título alineado a la izquierda */
+  ion-toolbar ion-title {
+    color: black !important;
+    font-weight: bold;
+    text-align: left; /* Alineación a la izquierda */
+  }
+  
+  /* Estilo para los iconos en la barra de navegación */
+  ion-toolbar ion-buttons[slot="end"] ion-button {
+    color: black !important;
+    margin-left: 12px; /* Espaciado entre los iconos */
+  }
+  

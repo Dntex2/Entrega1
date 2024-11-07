@@ -4,9 +4,7 @@
     <ion-title>Por favor escanea el QR en pantalla</ion-title>
   </ion-toolbar>
 </ion-header>
-<div id="camera-view" *ngIf="isScanning">
-  <!-- Aquí se mostrará la imagen de la cámara cuando el escaneo esté activo -->
-</div>
+
 
 
 <ion-content fullscreen>
@@ -23,23 +21,24 @@
   </ion-fab>
 </ion-content>
 
+<!-- Barra de navegación inferior fija -->
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button>
-      <ion-icon name="home-outline" routerLink="/Inicio"></ion-icon>
-      Inicio
+  <ion-tab-bar slot="bottom" class="static-tab-bar">
+    <ion-tab-button tab="home" routerLink="/inicio">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ion-tab-button>
-      <ion-icon name="search-outline"></ion-icon>
-      Buscar
+    <ion-tab-button tab="clases" routerLink="/attendance">
+      <ion-icon name="book-outline"></ion-icon>
+      <ion-label>Clases</ion-label>
     </ion-tab-button>
-    <ion-tab-button>
-      <ion-icon name="cog-outline"></ion-icon>
-      Ajustes
+    <ion-tab-button tab="qr" routerLink="/qr">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <ion-label>QR</ion-label>
     </ion-tab-button>
-    <ion-tab-button>
-      <ion-icon name="person-circle-outline" routerLink="/profile"></ion-icon>
-      Perfil
+    <ion-tab-button tab="profile" routerLink="/profile">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
