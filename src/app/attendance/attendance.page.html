@@ -16,13 +16,23 @@
         <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="primary">
+      <!-- Botón con icono que alterna entre mostrar y ocultar imágenes -->
+      <ion-button (click)="toggleImages()">
+        <ion-icon [name]="showImages ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- Contenido Scrollable sin Infinite Scroll -->
 <ion-content fullscreen class="attendance-content" (ionScroll)="onScroll($event)" scrollEvents="true">
   <ion-list>
-    <ion-card *ngFor="let item of items; let i = index" class="subject-card" (click)="showDetails(item)">
+    <ion-card *ngFor="let item of items; let i = index" class="subject-card">
+      
+      <!-- Imagen de la asignatura, visible solo si showImages es verdadero -->
+      <ion-img *ngIf="showImages" [src]="'assets/images/' + item.image" alt="Imagen de {{ item.name }}"></ion-img>
+      
       <ion-card-header [ngStyle]="{'background-color': item.color}">
         <ion-card-subtitle>{{ item.code }}</ion-card-subtitle>
         <ion-card-title>{{ item.name }}</ion-card-title>
