@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-profile',
@@ -9,13 +11,22 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
   userName: string | null = ''; // Nombre del usuario
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private loadingController: LoadingController) {
     
   }
 
   ngOnInit() {
+    this.presentLoading();
     // Obtener el nombre de usuario desde el almacenamiento local
     this.userName = localStorage.getItem('username');
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando...',
+      duration: 100 
+    });
+    await loading.present();
   }
 
   // Función para cerrar sesión
