@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @Component({
   selector: 'app-qr',
@@ -7,21 +7,16 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./qr.page.scss'],
 })
 export class QRPage {
-  result: string = '';
-  isScanning: boolean = false;
+  scannedData: string | null = null; // Declaración de la propiedad scannedData
 
-  constructor(private loadingController: LoadingController) {}
-  
-  ngOnInit() {
-    this.presentLoading();
-  }
+  constructor(private barcodeScanner: BarcodeScanner) {}
 
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Cargando...',
-      duration: 100
+  scanQRCode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('QR Code Data', barcodeData);
+      this.scannedData = barcodeData.text; // Guarda el texto escaneado
+    }).catch(err => {
+      console.error('Error', err);
     });
-    await loading.present();
   }
 }
-

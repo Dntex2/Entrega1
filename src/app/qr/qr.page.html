@@ -1,26 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Por favor escanea el QR en pantalla</ion-title>
+    <ion-title>QR Scanner</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <div id="container">
-    <ion-card>
-      <img src="https://hf-files-oregon.s3.amazonaws.com/hdpblackhawktechnicalcollege_kb_attachments/2023/06-21/85f8aab5-3577-47a5-8342-412e162da44b/image-20230621173816-23.png" alt="QR Code" />
-    </ion-card>
+<ion-content>
+  <ion-button (click)="scanQRCode()">Escanear QR</ion-button>
+  
+  <div *ngIf="scannedData">
+    <h2>Datos Escaneados:</h2>
+    <p>{{ scannedData }}</p>
   </div>
 </ion-content>
-
-<!-- Barra de navegación inferior fija -->
+<!-- Barra de navegación inferior con tabs -->
 <ion-tabs>
-  <ion-tab-bar slot="bottom" class="static-tab-bar">
-    <ion-tab-button tab="home" routerLink="/inicio">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" routerLink="/Inicio">
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Inicio</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="clases" routerLink="/attendance">
-      <ion-icon name="book-outline"></ion-icon>
+      <ion-icon name="book-outline"></ion-icon> <!-- Cambiado a icono de libro -->
       <ion-label>Clases</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="qr" routerLink="/qr">
