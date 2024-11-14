@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { QRPageRoutingModule } from './qr-routing.module';
 
 import { QRPage } from './qr.page';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { QRPage } from './qr.page';
     IonicModule,
     QRPageRoutingModule
   ],
-  declarations: [QRPage]
+  declarations: [QRPage],
+  providers: [BarcodeScanner]  // Añadir BarcodeScanner aquí
 })
 export class QRPageModule {}
