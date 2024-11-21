@@ -1,22 +1,38 @@
 import { Component } from '@angular/core';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { QrService } from '../servicios/qr.service';
 @Component({
   selector: 'app-qr',
   templateUrl: './qr.page.html',
   styleUrls: ['./qr.page.scss'],
 })
 export class QRPage {
-  scannedData: string | null = null; // Declaración de la propiedad scannedData
 
-  constructor(private barcodeScanner: BarcodeScanner) {}
+  objetoJson = false
+  JsonData : any
 
-  scanQRCode() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('QR Code Data', barcodeData);
-      this.scannedData = barcodeData.text; // Guarda el texto escaneado
-    }).catch(err => {
-      console.error('Error', err);
-    });
+  constructor(public qr : QrService) {}
+
+  // Esta funcion se encarga de iniciar el escaneo llamando al metodo StartScan del QrService.
+  // Una vez realizado el escaneo parsea qr.scanResult a un objeto JSON .
+  // verifica que tenga la propiedad exists con el valor true.
+  // si la propiedad y su valor son correctos coloca true en objetoJson y la propiedad data en JsonData
+  async Scaneo(){
+    this.objetoJson = false
+    this.JsonData = undefined
+    await this.qr.StartScan() // el await nos indica que hay que esperar el retorno del metodo por mas que sea async
+    try{
+      let parseResult = JSON.parse(this.qr.scanResult)
+      console.log(parseResult)
+      if(parseResult.exists){
+        this.objetoJson = true
+        this.JsonData = parseResult.data
+      }
+
+    } catch(e) { console.log(e) }
+  }
+
+  // Esta funcion llama al metodo flash del QrService
+  Flashlight(){
+    this.qr.flash()
   }
 }

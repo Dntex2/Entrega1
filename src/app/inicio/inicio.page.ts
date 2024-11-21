@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController, LoadingController} from '@ionic/angular';
-
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inicio',
@@ -10,18 +9,8 @@ import { AlertController, NavController, LoadingController} from '@ionic/angular
 export class InicioPage {
   constructor(
     private alertController: AlertController, 
-    private navCtrl: NavController,
-    private loadingController: LoadingController
+    private navCtrl: NavController
   ) {}
-
-    // Muestra la pantalla de carga al entrar en la vista
-    async presentLoading() {
-      const loading = await this.loadingController.create({
-        message: 'Cargando...',
-        duration: 100
-      });
-      await loading.present();
-    }
 
   // Muestra una alerta de bienvenida
   async presentWelcomeAlert() {
@@ -37,7 +26,6 @@ export class InicioPage {
 
   // Ejecuta la alerta de bienvenida cuando la vista se carga
   ionViewDidEnter() {
-    this.presentLoading();
     this.presentWelcomeAlert();
   }
 

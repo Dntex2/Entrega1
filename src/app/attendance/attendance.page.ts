@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-attendance',
@@ -16,20 +15,11 @@ export class AttendancePage implements OnInit {
   // Controla la visibilidad de las imágenes
   showImages: boolean = true;
 
-  constructor(private  loadingController: LoadingController) {}
+  constructor() {}
 
   ngOnInit() {
-    this.presentLoading();
     // Carga inicial de los items
     this.loadInitialItems();
-  }
-
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Cargando...',
-      duration: 100
-    });
-    await loading.present();
   }
 
   loadInitialItems() {
