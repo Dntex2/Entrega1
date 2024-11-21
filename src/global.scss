@@ -39,3 +39,12 @@
 
 // Aqui se puede aplicar el modo oscuro a la app, solo se debe descomentarla
 // @import "@ionic/angular/css/palettes/dark.system.css";
+
+/* //QR SCANNER // */
+body.scanner-active {
+    --background: transparent;
+    background: transparent;
+    --ion-background-color: transparent;
+}
+
+/* // ***********  //  */
