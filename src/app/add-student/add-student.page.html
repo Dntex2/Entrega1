@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Estudiante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="student.name" name="name" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input [(ngModel)]="student.email" name="email" type="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Edad</ion-label>
+      <ion-input [(ngModel)]="student.age" name="age" type="number" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Grado</ion-label>
+      <ion-input [(ngModel)]="student.grade" name="grade" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" color="primary">Agregar Estudiante</ion-button>
+  </form>
+</ion-content>
