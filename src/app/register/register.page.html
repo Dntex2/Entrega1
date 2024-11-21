@@ -1,44 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title class="text-center">
-      REGISTRO
-    </ion-title>
+    <ion-title class="text-center">Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="d-flex align-items-center justify-content-center">
-  <form (ngSubmit)="ngOnInit()" class="w-100" style="max-width: 400px;">
-    <!-- Contenedor centralizado -->
+  <form (ngSubmit)="onRegister()" class="w-100" style="max-width: 400px;">
     <div class="p-4 shadow bg-light rounded">
 
       <!-- Campo de nombre -->
-      <div class="mb-3">
-        <ion-item>
-          <ion-input type="text" placeholder="Ingresa tu nombre" [(ngModel)]="username" name="username" required></ion-input>
-        </ion-item>
-      </div>
+      <ion-item class="mb-3">
+        <ion-input
+          type="text"
+          placeholder="Nombre de Usuario"
+          [(ngModel)]="username"
+          name="username"
+          required>
+        </ion-input>
+      </ion-item>
 
       <!-- Campo de contraseña -->
-      <div class="mb-3">
-        <ion-item>
-          <ion-input type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required></ion-input>
-        </ion-item>
-      </div>
-
-      <!-- Botón de registro -->
-      <div class="d-flex justify-content-center mb-3">
-        <ion-button expand="block" class="register-button btn-primary" type="submit">
-          Registrarse
-        </ion-button>
-      </div>
-
-      <!-- Enlace de inicio de sesión -->
-      <ion-item lines="none" class="login-link mt-3">
-        <ion-label color="medium" class="text-center">
-          ¿Ya tienes una cuenta? <a routerLink="/home" class="link">Inicia Sesión</a>
-        </ion-label>
+      <ion-item class="mb-3">
+        <ion-input
+          type="password"
+          placeholder="Contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required>
+        </ion-input>
       </ion-item>
+
+      <!-- Campo de correo si es profesor -->
+      <ion-item class="mb-3" *ngIf="isProfessor">
+        <ion-input
+          type="email"
+          placeholder="Correo Electrónico"
+          [(ngModel)]="email"
+          name="email"
+          required>
+        </ion-input>
+      </ion-item>
+
+      <!-- Checkbox para indicar si es profesor -->
+      <ion-item class="mb-3">
+        <ion-label>Eres Profesor</ion-label>
+        <ion-checkbox slot="start" [(ngModel)]="isProfessor" name="isProfessor"></ion-checkbox>
+      </ion-item>
+
+      <!-- Botón para registrarse -->
+      <ion-button expand="block" type="submit" class="btn-primary">
+        Registrarse
+      </ion-button>
+
+      <!-- Mensaje de error -->
+      <ion-label *ngIf="errorMessage" color="danger" class="text-center">
+        {{ errorMessage }}
+      </ion-label>
     </div>
-    <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
   </form>
 </ion-content>
