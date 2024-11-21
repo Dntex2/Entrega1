@@ -20,16 +20,23 @@ export class HomePage {
     }
   }
   onSubmit() {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
+    const storedUser = localStorage.getItem('user'); // Recupera el objeto `user`
+    if (storedUser) {
+      const user = JSON.parse(storedUser); 
 
-    if (this.username === storedUsername && this.password === storedPassword) {
-      if (this.rememberMe){
-        localStorage.setItem('isLoggedIn', 'true');
+      if (this.username === user.username && this.password === user.password) {
+        // Guardar sesión si se seleccionó "Recordar mis credenciales"
+        if (this.rememberMe) {
+          localStorage.setItem('isLoggedIn', 'true');
+        }
+        
+        this.router.navigate(['/inicio']); 
+      } else {
+        this.errorMessage = 'Credenciales invalidas. Intentalo de nuevo.';
       }
-      this.router.navigate(['/inicio']); 
     } else {
-      this.errorMessage = 'Credenciales invalidas. Intentalo de nuevo.';
+      this.errorMessage = 'No hay una cuenta registrada. Por favor, regístrate.';
     }
   }
 }
+

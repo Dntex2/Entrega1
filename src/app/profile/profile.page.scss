@@ -1,101 +1,43 @@
-/* Estilo general para el contenido de la página de perfil */
-ion-content {
-    background-color: #f5f5f5; 
-    padding-bottom: 56px; 
-  }
-  
-  /* Estilos para la barra de navegación superior */
-  ion-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  ion-toolbar {
-    background-color: #ffffff;
-    color: black;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding: 8px;
-  }
-  
-  /* Estilo del título */
-  ion-title {
-    color: #ffffff; 
-    font-weight: bold;
-    text-align: left;
-    padding-left: 10px;
-  }
-  
-  /* Botón de Cerrar Sesión en la barra superior */
-  ion-toolbar ion-buttons[slot="end"] ion-button {
-    color: #ffffff;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  /* Estilos para el contenedor de perfil */
-  .profile-container {
-    text-align: center;
-    margin-top: 90px; 
-  }
-  
-  /* Avatar del perfil */
-  .profile-avatar {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    --border-radius: 50%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Icono del avatar */
-  .avatar-icon {
-    font-size: 100px;
-    color: #3b82f6; 
-  }
-  
-  /* Nombre del usuario */
-  .profile-name h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    margin-top: 10px;
-  }
-  
-  /* Estilos para el enlace de restablecer contraseña */
-  .restablecer-link {
-    text-align: center;
-    font-size: 0.9rem;
-    margin-top: 15px;
-  }
-  
-  /* Estilo del enlace */
-  .restablecer-link .link {
-    color: #3b82f6;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  
-  /* Separación y estilo de los íconos de la barra inferior */
-  ion-tab-button {
-    font-size: 0.8rem;
-    color: #333;
-  }
-  
-  ion-tab-button ion-icon {
-    font-size: 1.4rem;
-  }
-  
-  /* Estilo al hacer hover sobre los botones (solo para pruebas en navegador) */
-  ion-button:hover,
-  ion-tab-button:hover {
-    transform: scale(1.05);
-    transition: transform 0.2s;
-  }
-  
+
+h1.text-center {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1d4ed8;
+  margin-top: 20px;
+}
+
+.profile-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.profile-avatar {
+  width: 120px; 
+  height: 120px;
+  margin: 0 auto;
+  --border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-icon {
+  font-size: 120px;
+  color: #3b82f6; 
+}
+
+.profile-name h2 {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.profile-email p {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-top: 5px;
+}
+
+.link {
+  color: #3b82f6;
+  text-decoration: none; /* Elimina el subrayado del botón */
+  font-size: 1rem;
+}
+

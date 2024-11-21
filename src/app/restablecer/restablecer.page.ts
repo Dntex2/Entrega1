@@ -14,15 +14,24 @@ export class RestablecerPage {
   constructor(private router: Router) {}
 
   onResetPassword() {
-    const storedUsername = localStorage.getItem('username');
+    const storedUser = localStorage.getItem('user'); // Obtiene el usuario almacenado
 
-    if (this.username === storedUsername) {
-      localStorage.setItem('password', this.newPassword);
-      this.successMessage = 'Contraseña restablecida con éxito.';
-      this.errorMessage = '';
-      this.router.navigate(['/login']);
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+
+      // Verifica si el nombre de usuario coincide
+      if (this.username === user.username) {
+        user.password = this.newPassword; // Actualiza la contraseña
+        localStorage.setItem('user', JSON.stringify(user)); // Guarda el usuario actualizado
+        this.successMessage = 'Contraseña restablecida con éxito.';
+        this.errorMessage = '';
+        this.router.navigate(['/home']); // Redirige al login
+      } else {
+        this.errorMessage = 'Nombre de usuario inválido. Inténtalo de nuevo.';
+        this.successMessage = '';
+      }
     } else {
-      this.errorMessage = 'Credenciales invalidas. Intentalo de nuevo.';
+      this.errorMessage = 'No se encontró ningún usuario registrado.';
       this.successMessage = '';
     }
   }
