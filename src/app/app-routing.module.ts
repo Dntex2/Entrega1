@@ -20,12 +20,12 @@ const routes: Routes = [
     loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule),
   },
   {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
-  },
-  {
     path: 'restablecer',
     loadChildren: () => import('./restablecer/restablecer.module').then(m => m.RestablecerPageModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
   },
   {
     path: 'attendance',
@@ -46,7 +46,8 @@ const routes: Routes = [
   {
     path: 'students',
     loadChildren: () => import('./students/students.module').then(m => m.StudentsPageModule),
-  },  {
+  },
+  {
     path: 'add-student',
     loadChildren: () => import('./add-student/add-student.module').then( m => m.AddStudentPageModule)
   },

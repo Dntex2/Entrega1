@@ -1,35 +1,41 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  username: string = '';
+  username: string = ''; 
   password: string = '';
-  errorMessage: string = '';
-  rememberMe: boolean = false;
-
-
+  errorMessage: string = ''; 
+  rememberMe: boolean = false; 
 
   constructor(private router: Router) {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn){
-      this.router.navigate(['/inicio'])
+    if (isLoggedIn) {
+      this.router.navigate(['/inicio']); // Redirigir automáticamente si está logueado
     }
   }
-  onSubmit() {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
 
-    if (this.username === storedUsername && this.password === storedPassword) {
-      if (this.rememberMe){
-        localStorage.setItem('isLoggedIn', 'true');
+  onSubmit() {
+    const storedUser = localStorage.getItem('user');
+
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+
+      if (this.username === user.username && this.password === user.password) {
+        if (this.rememberMe) {
+          localStorage.setItem('isLoggedIn', 'true');
+        }
+
+        this.router.navigate(['/inicio']);
+      } else {
+        this.errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
       }
-      this.router.navigate(['/inicio']); 
     } else {
-      this.errorMessage = 'Credenciales invalidas. Intentalo de nuevo.';
+      this.errorMessage = 'No hay una cuenta registrada. Por favor, regístrate.';
     }
   }
 }

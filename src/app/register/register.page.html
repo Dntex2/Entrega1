@@ -1,27 +1,55 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title class="text-center">
-      REGISTRO
-    </ion-title>
+    <ion-title class="text-center">REGISTRO</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="d-flex align-items-center justify-content-center">
-  <form (ngSubmit)="ngOnInit()" class="w-100" style="max-width: 400px;">
-    <!-- Contenedor centralizado -->
+  <form (ngSubmit)="onRegister()" class="w-100" style="max-width: 400px;">
     <div class="p-4 shadow bg-light rounded">
 
       <!-- Campo de nombre -->
       <div class="mb-3">
         <ion-item>
-          <ion-input type="text" placeholder="Ingresa tu nombre" [(ngModel)]="username" name="username" required></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Ingresa tu nombre"
+            [(ngModel)]="username"
+            name="username"
+            required
+          ></ion-input>
         </ion-item>
       </div>
 
       <!-- Campo de contraseña -->
       <div class="mb-3">
         <ion-item>
-          <ion-input type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required></ion-input>
+          <ion-input
+            type="password"
+            placeholder="Ingresa tu contraseña"
+            [(ngModel)]="password"
+            name="password"
+            required
+          ></ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Checkbox para indicar si es profesor -->
+      <ion-item>
+        <ion-label>¿Eres profesor?</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="isProfessor" name="isProfessor"></ion-checkbox>
+      </ion-item>
+
+      <!-- Campo de correo (solo visible si es profesor) -->
+      <div *ngIf="isProfessor" class="mb-3">
+        <ion-item>
+          <ion-input
+            type="email"
+            placeholder="Ingresa tu correo"
+            [(ngModel)]="email"
+            name="email"
+            required
+          ></ion-input>
         </ion-item>
       </div>
 
@@ -31,14 +59,9 @@
           Registrarse
         </ion-button>
       </div>
-
-      <!-- Enlace de inicio de sesión -->
-      <ion-item lines="none" class="login-link mt-3">
-        <ion-label color="medium" class="text-center">
-          ¿Ya tienes una cuenta? <a routerLink="/home" class="link">Inicia Sesión</a>
-        </ion-label>
-      </ion-item>
     </div>
+
+    <!-- Mensaje de error -->
     <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
   </form>
 </ion-content>

@@ -5,27 +5,46 @@
 </ion-header>
 
 <ion-content class="d-flex align-items-center justify-content-center">
-  <form (ngSubmit)="onResetPassword()" class="w-100" style="max-width: 400px;">
+  <form (ngSubmit)="onResetPassword()" style="max-width: 400px; width: 100%;">
     <div class="p-4 shadow bg-light rounded">
-
+      <!-- Campo de nombre de usuario -->
       <ion-item class="mb-3">
-        <ion-input type="text" placeholder="Nombre de Usuario" [(ngModel)]="username" name="username" required></ion-input>
+        <ion-input
+          type="text"
+          placeholder="Nombre de Usuario"
+          [(ngModel)]="username"
+          name="username"
+          required
+        ></ion-input>
       </ion-item>
 
+      <!-- Campo de nueva contraseña -->
       <ion-item class="mb-3">
-        <ion-input type="password" placeholder="Nueva Contraseña" [(ngModel)]="newPassword" name="newPassword" required></ion-input>
+        <ion-input
+          type="password"
+          placeholder="Nueva Contraseña"
+          [(ngModel)]="newPassword"
+          name="newPassword"
+          required
+        ></ion-input>
       </ion-item>
 
-      <ion-button expand="block" type="submit" class="button-restablecer btn-primary border-0">
+      <!-- Botón de restablecer contraseña -->
+      <ion-button
+        expand="block"
+        type="submit"
+        class="button-restablecer btn-primary border-0"
+      >
         Restablecer Contraseña
       </ion-button>
 
-      <!-- Mostrar mensajes de error o éxito -->
+      <!-- Mensajes de error o éxito -->
       <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
       <ion-label color="success" class="text-center">{{ successMessage }}</ion-label>
 
+      <!-- Botón para ir al inicio -->
       <ion-button expand="block" class="button-login mt-3" routerLink="/home">
-        Ir a inicio de sesión
+        Ir a Inicio de Sesión
       </ion-button>
     </div>
   </form>
