@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -7,25 +8,48 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  userName: string | null = ''; // Nombre del usuario
+  user: { username: string; isProfessor: boolean; email?: string } | null = null;
 
-  constructor(private router: Router) {
-    
-  }
+  constructor(
+    private router: Router,
+    private loadingController: LoadingController
+  ) {}
 
   ngOnInit() {
-    // Obtener el nombre de usuario desde el almacenamiento local
-    this.userName = localStorage.getItem('username');
+    this.presentLoading(); // Mostrar el cargador
+    this.loadUserData(); // Cargar los datos del usuario
   }
 
-  // Función para cerrar sesión
-  unLogged() {
-    console.log('Cerrando sesión'); //  Esto aparece en la consola
-    localStorage.removeItem('isLoggedIn'); // Cerrar la sesión del almacenamiento local
-    this.router.navigate(['/home']); // Redirige a la página de inicio
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando...',
+      duration: 100, // Duración del cargador en milisegundos
+    });
+    await loading.present();
+  }
+
+  loadUserData() {
+    // Obtener los datos del usuario desde el LocalStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser); 
+    } else {
+      this.user = { username: 'Usuario', isProfessor: false };
+    }
   }
 
   goToResetPassword() {
-    this.router.navigate(['/restablecer']);
+    console.log('Navegando a /restablecer');
+    this.router.navigateByUrl('/restablecer');
+  }
+  
+  
+
+  unLogged() {
+    console.log('Cerrando sesión');
+    // Limpiar el estado del usuario en LocalStorage
+    localStorage.removeItem('isLoggedIn');
+    // Redirigir al inicio
+    this.router.navigate(['/home']);
   }
 }

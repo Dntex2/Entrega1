@@ -8,28 +8,38 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Saludo personalizado -->
+  <h1 class="text-center">
+    {{ user?.isProfessor ? 'Bienvenido Profesor' : 'Bienvenido Alumno ' }} {{ user?.username || 'Usuario' }}
+  </h1>
+
   <!-- Perfil de usuario -->
   <div class="profile-container">
     <!-- Ícono de avatar -->
     <ion-avatar class="profile-avatar">
       <ion-icon name="person-circle-outline" class="avatar-icon"></ion-icon>
     </ion-avatar>
+
     <!-- Nombre de usuario -->
     <ion-text class="profile-name">
-      <h2>{{ userName || 'Usuario' }}</h2>
+      <h2>{{ user?.username || 'Usuario' }}</h2>
+    </ion-text>
+
+    <!-- Correo si es profesor -->
+    <ion-text *ngIf="user?.isProfessor" class="profile-email">
+      <p>{{ user?.email }}</p>
     </ion-text>
   </div>
 
   <!-- Enlace para restablecer la contraseña -->
   <ion-item lines="none">
     <ion-label class="restablecer-link text-center">
-      ¿Se te olvidó la contraseña?
-      <span (click)="goToResetPassword()" class="link">Restablecer</span>
+      ¿Se te olvidó la contraseña? <a routerLink="/restablecer" class="link">Restablescala</a>
     </ion-label>
   </ion-item>
-  
+</ion-content>
 
-<!-- Barra de navegación baj fija -->
+<!-- Barra de navegación inferior -->
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="static-tab-bar">
     <ion-tab-button tab="home" routerLink="/inicio">
@@ -47,3 +57,6 @@
     <ion-tab-button tab="profile" routerLink="/profile">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
