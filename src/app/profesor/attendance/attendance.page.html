@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="attendance-content">
+<ion-content fullscreen class="attendance-content" (ionScroll)="onScroll($event)" scrollEvents="true">
   <ion-list>
     <ion-card *ngFor="let item of items; let i = index" class="subject-card">
       <ion-card-header [ngStyle]="{'background-color': item.color}">
@@ -19,22 +19,22 @@
   </ion-list>
 </ion-content>
 
-<!-- Barra de navegación inferior -->
+<!-- Barra de navegación inferior con tabs -->
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="static-tab-bar">
-    <ion-tab-button tab="home" routerLink="/inicio">
+    <ion-tab-button tab="home" routerLink="/profesor/inicio">
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="clases" routerLink="/attendance">
+    <ion-tab-button tab="clases" routerLink="/profesor/attendance">
       <ion-icon name="book-outline"></ion-icon>
       <ion-label>Clases</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="qr" routerLink="/qr">
+    <ion-tab-button tab="qrprofesor" routerLink="/profesor/qrprofesor">
       <ion-icon name="qr-code-outline"></ion-icon>
       <ion-label>QR</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="profile" routerLink="/profile">
+    <ion-tab-button tab="profile" routerLink="/profesor/profile">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Perfil</ion-label>
     </ion-tab-button>

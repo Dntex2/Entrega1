@@ -9,14 +9,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y="true">
+<ion-content scroll-y="true" class="ion-padding">
+  <!-- Contenedor principal para la bienvenida -->
+  <div class="welcome-container" style="text-align: center; margin-top: 20px;">
+    <!-- Avatar centrado -->
+    <ion-avatar style="margin: 0 auto; display: block; width: 120px; height: 120px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar Alumno" />
+    </ion-avatar>
+    <!-- Nombre del estudiante -->
+    <h2 style="margin-top: 15px; font-weight: bold; color: #333;">
+      ¡Bienvenido, {{ studentName }}!
+    </h2>
+    <p style="color: #666; font-size: 16px;">
+      Estamos encantados de verte. Aquí puedes gestionar tus clases y asistencias.
+    </p>
+  </div>
+
   <!-- Imagen con navegación directa a la página de asistencia -->
-  <ion-img 
-    src="https://img.freepik.com/vector-gratis/asistencia-papel-lista-comprobacion-dibujos-animados-icono-vectorial-ilustracion-educacion-negocio-aislado-plano_138676-10698.jpg" 
-    routerLink="/attendance" 
-    style="cursor: pointer; display: block; margin: 20px auto; width: 80%; max-width: 400px;"
-    alt="Imagen de Registro de Asistencias">
-  </ion-img>
+  <ion-img
+    src="https://img.freepik.com/vector-gratis/asistencia-papel-lista-comprobacion-dibujos-animados-icono-vectorial-ilustracion-educacion-negocio-aislado-plano_138676-10698.jpg"
+    routerLink="/attendance"
+    style="
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 15px;
+    "
+    alt="Imagen de Registro de Asistencias"
+  ></ion-img>
 </ion-content>
 
 <!-- Barra de navegación inferior con tabs -->

@@ -1,41 +1,44 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatabaseService } from '../servicios/database.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  username: string = ''; 
+  rut: string = '';
   password: string = '';
-  errorMessage: string = ''; 
-  rememberMe: boolean = false; 
+  errorMessage: string = '';
 
-  constructor(private router: Router) {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn) {
-      this.router.navigate(['/inicio']); // Redirigir automáticamente si está logueado
-    }
-  }
+  constructor(private router: Router, private db: DatabaseService) {}
 
-  onSubmit() {
-    const storedUser = localStorage.getItem('user');
-
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-
-      if (this.username === user.username && this.password === user.password) {
-        if (this.rememberMe) {
-          localStorage.setItem('isLoggedIn', 'true');
-        }
-
+  async onLogin() {
+    try {
+      // Validar en la colección de estudiantes
+      const student = await this.db.getUserByRutAndPassword(this.rut, this.password);
+      if (student) {
+        // Guardar usuario en LocalStorage y redirigir
+        localStorage.setItem('user', JSON.stringify(student));
         this.router.navigate(['/inicio']);
-      } else {
-        this.errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
+        return;
       }
-    } else {
-      this.errorMessage = 'No hay una cuenta registrada. Por favor, regístrate.';
+
+      // Validar en la colección de profesores
+      const professor = await this.db.getProfessorByRutAndPassword(this.rut, this.password);
+      if (professor) {
+        // Guardar usuario en LocalStorage y redirigir
+        localStorage.setItem('user', JSON.stringify(professor));
+        this.router.navigate(['/profesor/inicio']);
+        return;
+      }
+
+      // Si no se encuentra el usuario
+      this.errorMessage = 'RUT o contraseña incorrectos.';
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      this.errorMessage = 'Error al intentar iniciar sesión.';
     }
   }
 }

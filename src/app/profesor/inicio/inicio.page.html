@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>RegistrAPP</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="irAWeather()">
+        <ion-icon name="sunny"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="true" class="ion-padding">
+  <!-- Bienvenida con el nombre del profesor -->
+  <div class="welcome-container" *ngIf="professor">
+    <ion-avatar class="avatar">
+      <img src="https://cdn-icons-png.flaticon.com/512/194/194935.png" alt="Avatar Profesor" />
+    </ion-avatar>
+    <h2 class="welcome-message">¡Bienvenido, {{ professor.name }}!</h2>
+  </div>
+
+  <p *ngIf="!professor && !errorMessage" class="text-center">
+    Cargando información del profesor...
+  </p>
+  <p *ngIf="errorMessage" class="text-center text-danger">
+    {{ errorMessage }}
+  </p>
+</ion-content>
+
+<!-- Barra de navegación inferior con tabs -->
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" routerLink="/profesor/inicio">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Inicio</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="clases" routerLink="/profesor/attendance">
+      <ion-icon name="book-outline"></ion-icon>
+      <ion-label>Clases</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="qr" routerLink="/profesor/qrprofesor">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <ion-label>QR</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="profile" routerLink="/profesor/profile">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

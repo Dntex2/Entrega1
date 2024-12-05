@@ -1,67 +1,47 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { QrService } from '../servicios/qr.service';
+import { Component, OnInit } from '@angular/core';
+import * as QRCode from 'qrcode';
 import { DatabaseService } from '../servicios/database.service';
+import { Student } from '../models/student.model';
 
 @Component({
   selector: 'app-qr',
   templateUrl: './qr.page.html',
   styleUrls: ['./qr.page.scss'],
 })
-export class QRPage {
-  objetoJson = false;
-  JsonData: any;
-  students: any[] = [];
+export class QRPage implements OnInit {
+  qrCodeImage: string = '';
+  user: Student | null = null;
+  isPresent: boolean = false;
 
-  constructor(
-    public qr: QrService,
-    private db: DatabaseService,
-    private navCtrl: NavController // Servicio de navegación
-  ) {}
+  constructor(private db: DatabaseService) {}
 
-  ngOnInit() {
-    // Cargar la lista de estudiantes
-    this.db.getStudents().subscribe((data) => {
-      this.students = data;
-    });
-  }
+  async ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
 
-  async Scaneo() {
-    this.objetoJson = false; // Reinicia el estado
-    this.JsonData = undefined;
-
-    try {
-      await this.qr.StartScan(); // Inicia el escaneo
-      const parseResult = JSON.parse(this.qr.scanResult); // Convierte el resultado a JSON
-
-      if (parseResult.exists) {
-        this.objetoJson = true;
-        this.JsonData = parseResult.data;
-
-        const student = {
-          name: parseResult.data.name,
-          email: parseResult.data.email,
-          age: parseResult.data.age,
-          grade: parseResult.data.grade,
-        };
-
-        await this.db.addStudent(student); // Guarda en la base de datos
-        alert('Estudiante agregado correctamente.');
-      } else {
-        alert('El código QR no contiene datos válidos.');
+      if (parsedUser.rut) {
+        this.db.listenToStudentPresence(parsedUser.rut).subscribe(
+          (student: Student | null) => {
+            if (student) {
+              this.user = student;
+              this.isPresent = student.presente;
+              this.generateQRCode(JSON.stringify(student));
+            }
+          },
+          (error: any) => {
+            console.error('Error al escuchar cambios en presencia:', error);
+          }
+        );
       }
-    } catch (e) {
-      console.error('Error al escanear:', e);
-      alert('Ocurrió un error durante el escaneo.');
     }
   }
 
-  Flashlight() {
-    this.qr.flash();
-  }
-
-  // Método para redirigir a la página de agregar estudiante
-  goToAddStudent() {
-    this.navCtrl.navigateForward('/add-student');
+  async generateQRCode(data: string): Promise<void> {
+    try {
+      this.qrCodeImage = await QRCode.toDataURL(data);
+    } catch (error) {
+      console.error('Error al generar el código QR:', error);
+    }
   }
 }

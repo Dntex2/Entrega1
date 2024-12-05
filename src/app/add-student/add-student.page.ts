@@ -9,19 +9,20 @@ import { NavController } from '@ionic/angular';
 })
 export class AddStudentPage {
   student = {
-    name: '',
-    email: '',
-    age: null,
-    grade: '',
+    nombre: '', // Campo para el nombre del estudiante
+    rut: '',    // Campo para el RUT del estudiante
+    gmail: '',  // Campo para el correo electrónico
+    semestre: null, // Campo para el semestre del estudiante
   };
 
   constructor(private db: DatabaseService, private navCtrl: NavController) {}
 
   async submitForm() {
     try {
+      // Llamar al servicio de base de datos para agregar el estudiante
       await this.db.addStudent(this.student);
       alert('Estudiante agregado correctamente.');
-      this.navCtrl.navigateBack('/qr'); // Redirige de vuelta a la página QR
+      this.navCtrl.navigateBack('/profesor/qrprofesor'); // Redirige de vuelta a la página QR
     } catch (error) {
       console.error('Error al agregar el estudiante:', error);
       alert('Ocurrió un error al agregar el estudiante.');

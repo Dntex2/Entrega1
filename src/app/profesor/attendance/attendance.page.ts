@@ -37,4 +37,10 @@ export class AttendancePage implements OnInit {
     this.isScrollingDown = scrollTop > this.lastScrollTop;
     this.lastScrollTop = scrollTop;
   }
+
+  // Muestra detalles del item en un mensaje
+  showDetails(item: any) {
+    console.log('Detalles de la asignatura:', item);
+    alert(`Detalles de ${item.name}\nProfesor: ${item.professor}\nCódigo: ${item.code}`);
+  }
 }

@@ -8,7 +8,7 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: { nombre: string; gmail: string; rut: string } | null = null;
+  user: { username: string; isProfessor: boolean; email?: string } | null = null;
 
   constructor(
     private router: Router,
@@ -16,14 +16,14 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.presentLoading(); // Mostrar cargador
-    this.loadUserData(); // Cargar los datos del usuario logueado
+    this.presentLoading(); // Mostrar el cargador
+    this.loadUserData(); // Cargar los datos del usuario
   }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Cargando...',
-      duration: 500, // Duración del cargador en milisegundos
+      duration: 100, // Duración del cargador en milisegundos
     });
     await loading.present();
   }
@@ -32,29 +32,21 @@ export class ProfilePage implements OnInit {
     // Obtener los datos del usuario desde el LocalStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      this.user = {
-        nombre: parsedUser.nombre || 'Alumno',
-        gmail: parsedUser.gmail || parsedUser.email || 'Sin correo registrado', // Compatibilidad con "gmail"
-        rut: parsedUser.rut || 'N/A',
-      };
+      this.user = JSON.parse(storedUser); 
     } else {
-      // Usuario no encontrado en el localStorage
-      this.user = { nombre: 'Alumno', gmail: 'Sin correo registrado', rut: 'N/A' };
+      this.user = { username: 'Usuario', isProfessor: true, email: 'Sin correo registrado' };
     }
   }
-  
 
-  goToResetPassword() {
-    console.log('Navegando a /restablecer');
-    this.router.navigateByUrl('/restablecer');
+  irAWeather() {
+    console.log('Navegando a /weather');
+    this.router.navigateByUrl('/weather');
   }
 
   unLogged() {
     console.log('Cerrando sesión');
     // Limpiar el estado del usuario en LocalStorage
     localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user');
     // Redirigir al inicio
     this.router.navigate(['/home']);
   }
