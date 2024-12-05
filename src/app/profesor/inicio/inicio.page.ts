@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { DatabaseService } from 'src/app/servicios/database.service';
+import { DatabaseService } from 'src/app/servicios/database.service'; // Servicio para acceder a la base de datos
 
 @Component({
   selector: 'app-inicio',
@@ -9,42 +8,36 @@ import { DatabaseService } from 'src/app/servicios/database.service';
 })
 export class InicioPage implements OnInit {
   professor: any = null; // Datos del profesor
-  errorMessage: string = '';
+  errorMessage: string = ''; // Mensaje de error
 
-  constructor(
-    private navCtrl: NavController,
-    private db: DatabaseService
-  ) {}
+  constructor(private db: DatabaseService) {}
 
-  ngOnInit() {
-    this.loadProfessorData(); // Cargar datos al iniciar
-  }
+  async ngOnInit() {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
 
-  async loadProfessorData() {
-    try {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        const user = JSON.parse(storedUser);
-        if (user.isProfessor) {
-          const professorData = await this.db.getProfessorByRut(user.rut);
-          if (professorData) {
-            this.professor = professorData;
-          } else {
-            this.errorMessage = 'No se encontraron datos del profesor.';
+      if (parsedUser.rut) {
+        try {
+          // Busca al profesor por RUT
+          this.professor = await this.db.getProfessorByRut(parsedUser.rut);
+
+          if (!this.professor) {
+            this.errorMessage = 'Profesor no encontrado.';
           }
-        } else {
-          this.errorMessage = 'El usuario no es un profesor.';
+        } catch (error) {
+          console.error('Error al cargar datos del profesor:', error);
+          this.errorMessage = 'Error al cargar los datos del profesor.';
         }
       } else {
-        this.errorMessage = 'No hay usuario logueado.';
+        this.errorMessage = 'RUT no válido.';
       }
-    } catch (error) {
-      console.error('Error al cargar datos del profesor:', error);
-      this.errorMessage = 'Error al cargar datos del profesor.';
+    } else {
+      this.errorMessage = 'No hay un usuario logueado.';
     }
   }
-  
+
   irAWeather() {
-    this.navCtrl.navigateForward('/weather');
+    console.log('Redirigiendo a la página del clima...');
   }
 }

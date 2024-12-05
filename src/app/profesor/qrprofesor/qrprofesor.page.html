@@ -1,102 +1,83 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Por favor escanea el QR en pantalla</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/profesor/inicio">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Escaneo de QR</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content>
   <!-- Contenedor principal -->
-  <div id="container">
-    <!-- Mostrar resultado cuando no está escaneando -->
-    <ion-card *ngIf="!qr.scan">
-      <ion-card-header>
-        <ion-card-title>Resultado del QR</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p *ngIf="qr.scanResult">Contenido: {{ qr.scanResult }}</p>
-        <div *ngIf="objetoJson">
-          <strong>Datos del QR:</strong>
-          <ul>
-            <li><strong>Nombre:</strong> {{ JsonData.nombre || 'No especificado' }}</li>
-            <li><strong>RUT:</strong> {{ JsonData.rut || 'No especificado' }}</li>
-            <li><strong>Email:</strong> {{ JsonData.gmail || 'No especificado' }}</li>
-            <li><strong>Semestre:</strong> {{ JsonData.semestre || 'No especificado' }}</li>
-            <li><strong>Presente:</strong> {{ JsonData.presente ? 'Sí' : 'No' }}</li>
-            <li><strong>Materia:</strong> {{ JsonData.materia || 'Ninguna' }}</li>
-          </ul>
-        </div>
-        <p *ngIf="!qr.scanResult && !objetoJson">No hay datos escaneados.</p>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- Mostrar cámara y botón de flash cuando está escaneando -->
-    <div *ngIf="qr.scan" style="background-color: transparent;">
-      <ion-card id="qr_card">
-        <p style="text-align: center; color: gray;">Escaneando...</p>
-      </ion-card>
-      <ion-button expand="block" color="primary" fill="outline" size="medium" (click)="Flashlight()">
-        Flash
+  <div class="content-container ion-padding">
+    <!-- Estado inicial -->
+    <div *ngIf="!isScanning && !JsonData" class="ion-text-center">
+      <h2>¡Escanea el QR del estudiante!</h2>
+      <p>Haz clic en el ícono de escaneo para comenzar.</p>
+      <ion-button expand="block" color="primary" shape="round" size="large" (click)="scanQrCode()">
+        <ion-icon slot="start" name="scan-outline"></ion-icon>
+        Escanear QR
       </ion-button>
     </div>
 
-    <!-- Lista de estudiantes registrados -->
-    <ion-card>
+    <!-- Animación de escaneo -->
+    <div *ngIf="isScanning" class="ion-text-center">
+      <h3>Escaneando...</h3>
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <!-- Resultados del escaneo -->
+    <div *ngIf="JsonData" class="ion-margin-top">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Información del Estudiante</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ul>
+            <li><strong>Nombre:</strong> {{ JsonData.nombre || 'No especificado' }}</li>
+            <li><strong>RUT:</strong> {{ JsonData.rut || 'No especificado' }}</li>
+            <li>
+              <strong>Presente:</strong>
+              <ion-chip [color]="JsonData.presente ? 'success' : 'danger'">
+                <ion-icon name="checkmark-circle-outline" *ngIf="JsonData.presente"></ion-icon>
+                <ion-icon name="close-circle-outline" *ngIf="!JsonData.presente"></ion-icon>
+                <ion-label>{{ JsonData.presente ? 'Sí' : 'No' }}</ion-label>
+              </ion-chip>
+            </li>
+          </ul>
+          <ion-button
+            expand="block"
+            [color]="JsonData.presente ? 'danger' : 'success'"
+            shape="round"
+            (click)="toggleAttendance()"
+          >
+            {{ JsonData.presente ? 'Marcar como Ausente' : 'Marcar como Presente' }}
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Historial de escaneos -->
+    <ion-card class="ion-margin-top">
       <ion-card-header>
-        <ion-card-title>Lista de Estudiantes</ion-card-title>
+        <ion-card-title>Historial de Escaneos</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let student of students">
+          <ion-item *ngFor="let student of scannedStudents">
             <ion-label>
-              <h2>{{ student.nombre }}</h2>
+              <h2>{{ student.nombre || 'Desconocido' }}</h2>
               <p><strong>RUT:</strong> {{ student.rut }}</p>
-              <p><strong>Correo:</strong> {{ student.gmail }}</p>
-              <p><strong>Semestre:</strong> {{ student.semestre }}</p>
               <p><strong>Presente:</strong> {{ student.presente ? 'Sí' : 'No' }}</p>
-              <p><strong>Materia Actual:</strong> {{ student.materia || 'Ninguna' }}</p>
             </ion-label>
           </ion-item>
         </ion-list>
-        <p *ngIf="students.length === 0" style="text-align: center; color: gray;">
-          No hay estudiantes registrados.
+        <p *ngIf="scannedStudents.length === 0" class="ion-text-center">
+          No hay estudiantes escaneados.
         </p>
       </ion-card-content>
     </ion-card>
   </div>
-
-  <!-- Botón flotante para iniciar el escaneo -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="bottom: 90px;">
-    <ion-fab-button (click)="Scaneo()">
-      <ion-icon name="scan"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <!-- Botón flotante para agregar estudiante manualmente -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="bottom: 160px;">
-    <ion-fab-button (click)="goToAddStudent()" color="secondary">
-      <ion-icon name="person-add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
-
-<!-- Barra de navegación inferior fija -->
-<ion-tabs>
-  <ion-tab-bar slot="bottom" class="static-tab-bar">
-    <ion-tab-button tab="home" routerLink="/profesor/inicio">
-      <ion-icon name="home-outline"></ion-icon>
-      <ion-label>Inicio</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="clases" routerLink="/profesor/attendance">
-      <ion-icon name="book-outline"></ion-icon>
-      <ion-label>Clases</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="qr" routerLink="/profesor/qrprofesor">
-      <ion-icon name="qr-code-outline"></ion-icon>
-      <ion-label>QR</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="profile" routerLink="/profesor/profile">
-      <ion-icon name="person-circle-outline"></ion-icon>
-      <ion-label>Perfil</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>

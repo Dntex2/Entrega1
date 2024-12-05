@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs/operators'; // Importa el operador map
+import { Observable } from 'rxjs';
+import { Student } from '../models/student.model'; // Importa el modelo Student
 
 @Injectable({
   providedIn: 'root',
@@ -138,4 +141,73 @@ export class DatabaseService {
       throw error;
     }
   }
+
+  // Actualizar asistencia de un estudiante
+async updateAttendance(userId: string, presente: boolean): Promise<void> {
+  try {
+    await this.firestore.collection('students').doc(userId).update({
+      presente: presente,
+    });
+    console.log('Asistencia actualizada correctamente.');
+  } catch (error) {
+    console.error('Error al actualizar asistencia:', error);
+    throw error;
+  }
 }
+
+async updateField(collection: string, id: string, data: any): Promise<void> {
+  try {
+    await this.firestore.collection(collection).doc(id).update(data);
+    console.log('Campo actualizado:', data);
+  } catch (error) {
+    console.error('Error al actualizar el campo:', error);
+    throw error;
+  }
+}
+
+// Actualizar la asistencia del estudiante
+async updateStudentPresence(rut: string, isPresent: boolean): Promise<void> {
+  try {
+    const snapshot = await this.firestore
+      .collection('students', (ref) => ref.where('rut', '==', rut))
+      .get()
+      .toPromise();
+
+    if (snapshot && !snapshot.empty) {
+      const docId = snapshot.docs[0].id;
+      await this.firestore.collection('students').doc(docId).update({
+        presente: isPresent,
+      });
+      console.log('Presente actualizado correctamente.');
+    } else {
+      console.error('Estudiante no encontrado para actualizar presencia.');
+    }
+  } catch (error) {
+    console.error('Error al actualizar la presencia del estudiante:', error);
+    throw error;
+  }
+
+}
+
+// Actualizar el estado de presencia de un estudiante
+async updatePresence(collection: string, userId: string, isPresent: boolean): Promise<void> {
+  try {
+    await this.firestore.collection(collection).doc(userId).update({
+      presente: isPresent,
+    });
+    console.log(`Presencia actualizada para ${userId}: ${isPresent}`);
+  } catch (error) {
+    console.error('Error al actualizar la presencia:', error);
+    throw error;
+  }
+}
+listenToStudentPresence(rut: string): Observable<Student | null> {
+  return this.firestore
+    .collection<Student>('students', (ref) => ref.where('rut', '==', rut))
+    .valueChanges({ idField: 'id' }) // Incluye el campo `id` en los resultados
+    .pipe(
+      map((students) => (students.length > 0 ? students[0] : null)) // Devuelve el primer estudiante o null
+    );
+}
+}
+
