@@ -11,22 +11,19 @@
 
 <ion-content scroll-y="true" class="ion-padding">
   <!-- Bienvenida con el nombre del profesor -->
-  <div class="welcome-container">
+  <div class="welcome-container" *ngIf="professor">
     <ion-avatar class="avatar">
       <img src="https://cdn-icons-png.flaticon.com/512/194/194935.png" alt="Avatar Profesor" />
     </ion-avatar>
-    <h2 class="welcome-message">¡Bienvenido, {{ professorName }}!</h2>
-    <p>Estamos encantados de verte. Aquí puedes gestionar tus clases y asistencias.</p>
+    <h2 class="welcome-message">¡Bienvenido, {{ professor.nombre }}!</h2>
   </div>
 
-
-  <!-- Imagen con navegación directa a la página de asistencia -->
-  <ion-img
-    src="https://img.freepik.com/vector-gratis/asistencia-papel-lista-comprobacion-dibujos-animados-icono-vectorial-ilustracion-educacion-negocio-aislado-plano_138676-10698.jpg"
-    routerLink="/attendance"
-    style="cursor: pointer; display: block; margin: 20px auto; width: 80%; max-width: 400px;"
-    alt="Imagen de Registro de Asistencias"
-  ></ion-img>
+  <p *ngIf="!professor && !errorMessage" class="text-center">
+    Cargando información del profesor...
+  </p>
+  <p *ngIf="errorMessage" class="text-center text-danger">
+    {{ errorMessage }}
+  </p>
 </ion-content>
 
 <!-- Barra de navegación inferior con tabs -->

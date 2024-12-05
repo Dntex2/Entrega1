@@ -7,13 +7,13 @@
 <ion-content class="d-flex align-items-center justify-content-center">
   <form (ngSubmit)="onResetPassword()" style="max-width: 400px; width: 100%;">
     <div class="p-4 shadow bg-light rounded">
-      <!-- Campo de nombre de usuario -->
+      <!-- Campo de RUT -->
       <ion-item class="mb-3">
         <ion-input
           type="text"
-          placeholder="Nombre de Usuario"
-          [(ngModel)]="username"
-          name="username"
+          placeholder="Ingrese su RUT sin puntos ni dígito verificador"
+          [(ngModel)]="rut"
+          name="rut"
           required
         ></ion-input>
       </ion-item>

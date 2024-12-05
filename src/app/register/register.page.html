@@ -1,67 +1,72 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title class="text-center">REGISTRO</ion-title>
+    <ion-title class="text-center">Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="d-flex align-items-center justify-content-center">
-  <form (ngSubmit)="onRegister()" class="w-100" style="max-width: 400px;">
+<ion-content class="d-flex align-items-center justify-content-center">
+  <form (ngSubmit)="onRegister()" style="max-width: 400px; width: 100%;">
     <div class="p-4 shadow bg-light rounded">
 
       <!-- Campo de nombre -->
-      <div class="mb-3">
-        <ion-item>
-          <ion-input
-            type="text"
-            placeholder="Ingresa tu nombre"
-            [(ngModel)]="username"
-            name="username"
-            required
-          ></ion-input>
-        </ion-item>
-      </div>
+      <ion-item class="mb-3">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Ingresa tu nombre"
+          [(ngModel)]="name"
+          name="name"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <!-- Campo de RUT -->
+      <ion-item class="mb-3">
+        <ion-label position="floating">RUT</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Ingresa tu RUT (sin puntos ni guión)"
+          [(ngModel)]="rut"
+          name="rut"
+          required
+        ></ion-input>
+      </ion-item>
 
       <!-- Campo de contraseña -->
-      <div class="mb-3">
-        <ion-item>
-          <ion-input
-            type="password"
-            placeholder="Ingresa tu contraseña"
-            [(ngModel)]="password"
-            name="password"
-            required
-          ></ion-input>
-        </ion-item>
-      </div>
+      <ion-item class="mb-3">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input
+          type="password"
+          placeholder="Ingresa tu contraseña"
+          [(ngModel)]="password"
+          name="password"
+          required
+        ></ion-input>
+      </ion-item>
 
-      <!-- Checkbox para indicar si es profesor -->
-      <ion-item>
+      <!-- Selección entre estudiante o profesor -->
+      <ion-item class="mb-3">
         <ion-label>¿Eres profesor?</ion-label>
         <ion-checkbox slot="end" [(ngModel)]="isProfessor" name="isProfessor"></ion-checkbox>
       </ion-item>
 
       <!-- Campo de correo (solo visible si es profesor) -->
-      <div *ngIf="isProfessor" class="mb-3">
-        <ion-item>
-          <ion-input
-            type="email"
-            placeholder="Ingresa tu correo"
-            [(ngModel)]="email"
-            name="email"
-            required
-          ></ion-input>
-        </ion-item>
-      </div>
+      <ion-item class="mb-3" *ngIf="isProfessor">
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input
+          type="email"
+          placeholder="Ingresa tu correo electrónico"
+          [(ngModel)]="email"
+          name="email"
+          required
+        ></ion-input>
+      </ion-item>
 
       <!-- Botón de registro -->
-      <div class="d-flex justify-content-center mb-3">
-        <ion-button expand="block" class="register-button btn-primary" type="submit">
-          Registrarse
-        </ion-button>
-      </div>
-    </div>
+      <ion-button expand="block" type="submit" class="btn-primary">Registrarse</ion-button>
 
-    <!-- Mensaje de error -->
-    <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
+      <!-- Mensaje de error -->
+      <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
+    </div>
   </form>
 </ion-content>
