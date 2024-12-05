@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Por favor escanea el QR en pantalla</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -65,13 +65,15 @@
   </div>
 
   <!-- Botón flotante para iniciar el escaneo -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="bottom: 90px;">
     <ion-fab-button (click)="Scaneo()">
       <ion-icon name="scan"></ion-icon>
     </ion-fab-button>
+  </ion-fab>
 
-    <!-- Botón flotante para agregar estudiante manualmente -->
-    <ion-fab-button (click)="goToAddStudent()" color="secondary" style="margin-bottom: 70px;">
+  <!-- Botón flotante para agregar estudiante manualmente -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" style="bottom: 160px;">
+    <ion-fab-button (click)="goToAddStudent()" color="secondary">
       <ion-icon name="person-add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -80,19 +82,19 @@
 <!-- Barra de navegación inferior fija -->
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="static-tab-bar">
-    <ion-tab-button tab="home" routerLink="/inicio">
+    <ion-tab-button tab="home" routerLink="/profesor/inicio">
       <ion-icon name="home-outline"></ion-icon>
       <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="clases" routerLink="/attendance">
+    <ion-tab-button tab="clases" routerLink="/profesor/attendance">
       <ion-icon name="book-outline"></ion-icon>
       <ion-label>Clases</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="qr" routerLink="/qr">
+    <ion-tab-button tab="qr" routerLink="/profesor/qrprofesor">
       <ion-icon name="qr-code-outline"></ion-icon>
       <ion-label>QR</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="profile" routerLink="/profile">
+    <ion-tab-button tab="profile" routerLink="/profesor/profile">
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Perfil</ion-label>
     </ion-tab-button>

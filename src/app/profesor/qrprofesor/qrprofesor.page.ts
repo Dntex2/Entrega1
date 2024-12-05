@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { QrService } from '../servicios/qr.service';
-import { DatabaseService } from '../servicios/database.service';
+import { NavController } from '@ionic/angular'; // Importa NavController
+import { QrService } from 'src/app/servicios/qr.service'; // Ruta al servicio QR
+import { DatabaseService } from 'src/app/servicios/database.service';
 
 @Component({
-  selector: 'app-qr',
-  templateUrl: './qr.page.html',
-  styleUrls: ['./qr.page.scss'],
+  selector: 'app-qrprofesor',
+  templateUrl: './qrprofesor.page.html',
+  styleUrls: ['./qrprofesor.page.scss'],
 })
-export class QRPage {
+export class QrprofesorPage {
   objetoJson = false;
   JsonData: any;
   students: any[] = [];
@@ -16,18 +16,17 @@ export class QRPage {
   constructor(
     public qr: QrService,
     private db: DatabaseService,
-    private navCtrl: NavController // Servicio de navegación
+    private navCtrl: NavController // Añade NavController al constructor
   ) {}
 
   ngOnInit() {
-    // Cargar la lista de estudiantes
     this.db.getStudents().subscribe((data) => {
       this.students = data;
     });
   }
 
   async Scaneo() {
-    this.objetoJson = false; // Reinicia el estado
+    this.objetoJson = false;
     this.JsonData = undefined;
 
     try {
@@ -38,17 +37,17 @@ export class QRPage {
         this.objetoJson = true;
         this.JsonData = parseResult.data;
 
-        const student = {
+        const data = {
           nombre: parseResult.data.nombre,
           rut: parseResult.data.rut,
           gmail: parseResult.data.gmail,
           semestre: parseResult.data.semestre,
-          presente: false, // Valor inicial para uso futuro
-          materia: null, // Valor inicial para uso futuro
+          presente: false, // Inicialización predeterminada
+          materia: null, // Inicialización predeterminada
         };
 
-        await this.db.addStudent(student); // Guarda en la base de datos
-        alert('Estudiante agregado correctamente.');
+        await this.db.addStudent(data); // Guarda en la base de datos
+        alert('Datos registrados correctamente.');
       } else {
         alert('El código QR no contiene datos válidos.');
       }
@@ -59,11 +58,11 @@ export class QRPage {
   }
 
   Flashlight() {
-    this.qr.flash();
+    this.qr.flash(); // Activa o desactiva el flash
   }
 
-  // Método para redirigir a la página de agregar estudiante
+  // Método para redirigir a la página de agregar estudiantes
   goToAddStudent() {
-    this.navCtrl.navigateForward('/add-student');
+    this.navCtrl.navigateForward('/add-student'); // Asegúrate de que esta ruta sea válida
   }
 }

@@ -7,10 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  username: string = ''; 
+  username: string = '';
   password: string = '';
-  errorMessage: string = ''; 
-  rememberMe: boolean = false; 
+  errorMessage: string = '';
+  rememberMe: boolean = false;
 
   constructor(private router: Router) {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -30,7 +30,12 @@ export class HomePage {
           localStorage.setItem('isLoggedIn', 'true');
         }
 
-        this.router.navigate(['/inicio']);
+        // Decidir redirección según el rol del usuario
+        if (user.isProfessor) {
+          this.router.navigate(['/profesor/inicio']); // Redirigir a la página del profesor
+        } else {
+          this.router.navigate(['/inicio']); // Redirigir a la página del estudiante
+        }
       } else {
         this.errorMessage = 'Credenciales inválidas. Intenta de nuevo.';
       }

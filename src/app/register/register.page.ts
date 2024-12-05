@@ -10,30 +10,30 @@ export class RegisterPage {
   username: string = ''; // Nombre del usuario
   password: string = ''; // Contraseña del usuario
   isProfessor: boolean = false; // Indica si el usuario es profesor
-  email: string = ''; // Correo del profesor
+  email: string = ''; // Correo del profesor (opcional si no es profesor)
   errorMessage: string = ''; // Mensaje de error
 
   constructor(private router: Router) {}
 
   // Validar si el correo tiene un formato válido
   isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Acepta cualquier dominio
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
   onRegister() {
-    this.errorMessage = ''; // Limpia el mensaje de error previo
+    this.errorMessage = ''; // Limpia cualquier mensaje de error previo
 
-    // Validar que todos los campos estén completos
+    // Validar que todos los campos requeridos estén completos
     if (!this.username || !this.password || (this.isProfessor && !this.email)) {
       this.errorMessage = 'Por favor, completa todos los campos.';
-      return; // Detener el registro si faltan datos
+      return;
     }
 
     // Validar el correo si es profesor
     if (this.isProfessor && !this.isValidEmail(this.email)) {
       this.errorMessage = 'El correo electrónico debe ser válido.';
-      return; // Detener el registro si el correo no es válido
+      return;
     }
 
     // Crear el objeto usuario
@@ -44,10 +44,10 @@ export class RegisterPage {
       email: this.isProfessor ? this.email : null,
     };
 
-    // Guardar el usuario en LocalStorage
+    // Guardar los datos del usuario en LocalStorage
     localStorage.setItem('user', JSON.stringify(user));
 
-    // Redirigir al login
+    // Redirigir siempre a home (login)
     this.router.navigate(['/home']);
   }
 }

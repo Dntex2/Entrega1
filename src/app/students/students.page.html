@@ -6,13 +6,19 @@
 
 <ion-content>
   <ion-list>
+    <!-- Iterar sobre los estudiantes y mostrar sus datos -->
     <ion-item *ngFor="let student of students">
       <ion-label>
-        <h2>{{ student.name }}</h2>
-        <p>Correo: {{ student.email }}</p>
-        <p>Edad: {{ student.age }}</p>
-        <p>Grado: {{ student.grade }}</p>
+        <h2>{{ student.nombre }}</h2>
+        <p><strong>RUT:</strong> {{ student.rut }}</p>
+        <p><strong>Correo:</strong> {{ student.gmail }}</p>
+        <p><strong>Semestre:</strong> {{ student.semestre }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <!-- Mostrar mensaje si no hay estudiantes registrados -->
+  <p *ngIf="students.length === 0" style="text-align: center; color: gray; margin-top: 20px;">
+    No hay estudiantes registrados.
+  </p>
 </ion-content>

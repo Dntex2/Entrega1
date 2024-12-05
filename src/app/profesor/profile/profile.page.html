@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="unLogged()">Cerrar Sesión</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Contenedor de perfil -->
+  <div class="profile-container" style="text-align: center; margin-top: 40px;">
+    <!-- Avatar -->
+    <ion-avatar style="margin: 0 auto; width: 120px; height: 120px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/194/194935.png" alt="Avatar Profesor" />
+    </ion-avatar>
+
+    <!-- Saludo -->
+    <h2 style="margin-top: 20px; font-size: 24px; color: #3b5998;">
+      Bienvenido, {{ user?.username || 'Profesor' }}
+    </h2>
+
+    <!-- Correo -->
+    <p *ngIf="user?.isProfessor" style="color: #5f6368; font-size: 16px; margin-bottom: 20px;">
+      {{ user?.email || 'Sin correo registrado' }}
+    </p>
+
+    <!-- Divider -->
+    <hr style="border: none; height: 1px; background-color: #ddd; margin: 20px 0;" />
+  </div>
+</ion-content>
+
+<!-- Barra de navegación inferior -->
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="static-tab-bar">
+    <ion-tab-button tab="home" routerLink="/profesor/inicio">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Inicio</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="clases" routerLink="/profesor/attendance">
+      <ion-icon name="book-outline"></ion-icon>
+      <ion-label>Clases</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="qrprofesor" routerLink="/profesor/qrprofesor">
+      <ion-icon name="qr-code-outline"></ion-icon>
+      <ion-label>QR</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="profile" routerLink="/profesor/profile">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

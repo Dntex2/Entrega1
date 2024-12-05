@@ -1,0 +1,27 @@
+.welcome-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .avatar {
+    margin: 0 auto 10px;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .welcome-message {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  ion-img {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  ion-img:hover {
+    transform: scale(1.05);
+  }
+  

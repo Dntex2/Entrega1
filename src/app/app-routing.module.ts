@@ -49,7 +49,23 @@ const routes: Routes = [
   },
   {
     path: 'add-student',
-    loadChildren: () => import('./add-student/add-student.module').then( m => m.AddStudentPageModule)
+    loadChildren: () => import('./add-student/add-student.module').then(m => m.AddStudentPageModule),
+  },
+  {
+    path: 'profesor/inicio',
+    loadChildren: () => import('./profesor/inicio/inicio.module').then(m => m.InicioPageModule),
+  },
+  {
+    path: 'profesor/profile',
+    loadChildren: () => import('./profesor/profile/profile.module').then(m => m.ProfilePageModule),
+  },
+  {
+    path: 'profesor/attendance',
+    loadChildren: () => import('./profesor/attendance/attendance.module').then(m => m.AttendancePageModule),
+  },
+  {
+    path: 'profesor/qrprofesor',
+    loadChildren: () => import('./profesor/qrprofesor/qrprofesor.module').then( m => m.QrprofesorPageModule)
   },
 
 ];
