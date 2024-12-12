@@ -69,4 +69,11 @@
       <ion-label color="danger" class="text-center">{{ errorMessage }}</ion-label>
     </div>
   </form>
+
+    <!-- Loading Spinner -->
+  <ion-loading
+  [isOpen]="loading"
+  message="Registrando..."
+  spinner="crescent"
+  ></ion-loading>
 </ion-content>
