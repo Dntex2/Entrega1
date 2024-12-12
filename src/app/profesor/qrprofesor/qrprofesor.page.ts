@@ -1,95 +1,51 @@
-import { Component } from '@angular/core';
-import { QrService } from 'src/app/servicios/qr.service';
-import { DatabaseService } from 'src/app/servicios/database.service';
-import { AlertController } from '@ionic/angular';
-import { Student } from 'src/app/models/student.model';
+import { Component, OnInit } from '@angular/core';
+import { QRCodeService } from '../servicios/qrcode.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-qrprofesor',
   templateUrl: './qrprofesor.page.html',
   styleUrls: ['./qrprofesor.page.scss'],
 })
-export class QrprofesorPage {
-  isScanning: boolean = false;
-  JsonData: Student | null = null;
-  scannedStudents: Student[] = [];
+export class QrprofesorPage implements OnInit {
+  qrCodeImage: string | null = null;
+  student: any = {
+    nombre: 'Juan Pérez',  // Reemplaza con los datos reales
+    rut: '',
+    asignatura: '',
+  };
+  isPresent: boolean = false;
 
-  constructor(
-    public qr: QrService,
-    private db: DatabaseService,
-    private alertCtrl: AlertController
-  ) {
-    this.loadScannedStudents();
+  constructor(private qrService: QRCodeService, private router: Router) {}
+
+  ngOnInit() {
+    this.generateQRCode();
   }
 
-  async scanQrCode(): Promise<void> {
-    this.isScanning = true;
-    this.JsonData = null;
-    try {
-      await this.qr.StartScan();
-      const scanResult = this.qr.scanResult;
-
-      if (scanResult) {
-        const parsedResult = JSON.parse(scanResult);
-        const student = await this.db.getUserByRut(parsedResult.rut);
-
-        if (student) {
-          this.JsonData = student;
-          this.updateScannedStudent(student);
-        } else {
-          this.showAlert('Error', 'Estudiante no encontrado en la base de datos.');
-        }
-      }
-    } catch (error) {
-      console.error('Error al escanear:', error);
-      this.showAlert('Error', 'No se pudo completar el escaneo.');
-    } finally {
-      this.isScanning = false;
-    }
+  // Método para generar el QR
+  generateQRCode() {
+    const qrData = {
+      nombre: this.student.nombre,
+      rut: this.student.rut,
+      asignatura: this.student.asignatura,
+    };
+    
+    this.qrCodeImage = this.qrService.generateQRCode(qrData);
   }
 
-  async toggleAttendance(): Promise<void> {
-    if (this.JsonData) {
-      try {
-        const newPresenceStatus = !this.JsonData.presente;
-        await this.db.updatePresence('students', this.JsonData.id!, newPresenceStatus);
-        this.JsonData.presente = newPresenceStatus;
-        this.updateScannedStudent(this.JsonData);
-        alert(`El estudiante ha sido marcado como ${newPresenceStatus ? 'Presente' : 'Ausente'}.`);
-      } catch (error) {
-        console.error('Error al actualizar la asistencia:', error);
-        alert('Error al actualizar la asistencia.');
-      }
-    }
-  }
-
-  updateScannedStudent(student: Student): void {
-    const index = this.scannedStudents.findIndex((s) => s.rut === student.rut);
-    if (index !== -1) {
-      this.scannedStudents[index] = student;
+  // Método para manejar el escaneo del QR (simulado)
+  onScanQRCode(scannedData: any) {
+    // Lógica para validar el escaneo del QR
+    if (scannedData.nombre === this.student.nombre && scannedData.rut === this.student.rut && scannedData.asignatura === this.student.asignatura) {
+      this.isPresent = true; // El estudiante está presente
     } else {
-      this.scannedStudents.push(student);
-    }
-    this.saveScannedStudents();
-  }
-
-  loadScannedStudents(): void {
-    const storedData = localStorage.getItem('scannedStudents');
-    if (storedData) {
-      this.scannedStudents = JSON.parse(storedData);
+      this.isPresent = false; // El estudiante no está presente
     }
   }
 
-  saveScannedStudents(): void {
-    localStorage.setItem('scannedStudents', JSON.stringify(this.scannedStudents));
-  }
-
-  async showAlert(header: string, message: string): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      header,
-      message,
-      buttons: ['OK'],
-    });
-    await alert.present();
+  // Método para navegar hacia la página de inicio
+  goBack() {
+    this.router.navigate(['/profesor/inicio']);
   }
 }
